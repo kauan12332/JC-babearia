@@ -250,3 +250,20 @@ renderProducts();
 renderCutTypes();
 renderCutSales();
 updateDailySummary();
+
+function resetSaldo() {
+  if (confirm('Tem certeza que deseja resetar o saldo? Isso apagará os lançamentos de hoje.')) {
+    // limpar cortes realizados
+    cutSales = [];
+    localStorage.setItem('cutSales', JSON.stringify(cutSales));
+
+    // limpar vendas de produtos
+    localStorage.removeItem('productSales');
+
+    // atualizar resumo
+    renderCutSales();
+    updateDailySummary();
+
+    alert('Saldo resetado com sucesso!');
+  }
+}
