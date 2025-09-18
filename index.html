@@ -67,6 +67,56 @@
           <tbody id="productList"></tbody>
         </table>
       </section>
+      
+      <!-- Tipos de cortes -->
+<section class="form-section">
+  <h2>💈 Tipos de Cortes</h2>
+  <form id="cutTypeForm">
+    <input type="text" id="cutName" placeholder="Nome do Corte" required>
+    <input type="number" id="cutPrice" placeholder="Preço" step="0.01" required>
+    <button type="submit">Adicionar Tipo</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Corte</th>
+        <th>Preço</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="cutTypeList"></tbody>
+  </table>
+</section>
+
+<!-- Registrar cortes realizados -->
+<section class="form-section">
+  <h2>✂️ Cortes Realizados</h2>
+  <form id="cutSaleForm">
+    <select id="cutSelect" required></select>
+    <button type="submit">Registrar Corte</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Corte</th>
+        <th>Valor</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody id="cutSaleList"></tbody>
+  </table>
+</section>
+
+<!-- Resumo diário -->
+<section class="form-section">
+  <h2>📊 Resumo Diário</h2>
+  <p id="dailyCuts">Total de cortes hoje: 0</p>
+  <p id="dailyRevenue">Receita total hoje: R$ 0,00</p>
+  <button onclick="printReport()">Imprimir/Exportar Relatório</button>
+</section>
+
     </main>
   </div>
 
