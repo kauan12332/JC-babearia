@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFD700">
+  <title>Agenda JC Barbearia</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div class="overlay">
+    <header>
+      <img src="imagem-background/JC_barbearia.jpg" alt="Logo JC Barbearia" class="logo">
+      <h1>Agenda JC Barbearia</h1>
+    </header>
+
+    <main>
+      <!-- Clientes -->
+      <section class="form-section">
+        <h2>📅 Agendar Cliente</h2>
+        <form id="clientForm">
+          <input type="hidden" id="clientIndex">
+          <input type="text" id="clientName" placeholder="Nome do Cliente" required>
+          <input type="text" id="service" placeholder="Serviço" required>
+          <input type="datetime-local" id="dateTime" required>
+          <button type="submit">Salvar</button>
+        </form>
+
+        <input type="text" id="clientSearch" placeholder="Buscar cliente..." class="search-input">
+
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Serviço</th>
+              <th>Data/Hora</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="clientList"></tbody>
+        </table>
+      </section>
+
+      <!-- Produtos -->
+      <section class="form-section">
+        <h2>🛒 Produtos</h2>
+        <form id="productForm">
+          <input type="hidden" id="productIndex">
+          <input type="text" id="productName" placeholder="Nome do Produto" required>
+          <input type="number" id="productPrice" placeholder="Preço" step="0.01" required>
+          <input type="number" id="productQty" placeholder="Quantidade" required>
+          <button type="submit">Salvar</button>
+        </form>
+
+        <input type="text" id="productSearch" placeholder="Buscar produto..." class="search-input">
+
+        <table>
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Preço</th>
+              <th>Qtd</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="productList"></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+  // Registrar Service Worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => console.log('Service Worker registrado:', reg))
+      .catch(err => console.log('Erro SW:', err));
+  }
+</script>
+
+</body>
+</html>

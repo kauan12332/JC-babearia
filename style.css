@@ -1,0 +1,127 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: url('imagem-background/JC_barbearia.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.85);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+}
+
+header .logo {
+  width: 120px;
+  height: auto;
+}
+
+h1, h2 {
+  font-family: 'Georgia', serif;
+  color: #FFD700;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.form-section {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  width: 95%;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+input, button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+}
+
+input {
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+}
+
+button {
+  background-color: #FFD700;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  flex: none;
+}
+
+.search-input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.9);
+  color: #000;
+  border: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFD700;
+}
+
+tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.action-btn {
+  background: red;
+  color: #fff;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  background: darkred;
+}
+
+.edit-btn {
+  background: #FFD700;
+  color: #000;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #e0c400;
+}
