@@ -15,6 +15,7 @@ body {
 
 header {
   text-align: center;
+  position: relative;
 }
 
 header .logo {
@@ -25,8 +26,47 @@ header .logo {
 h1, h2 {
   font-family: 'Georgia', serif;
   color: #FFD700;
+  margin-top: 5px;
 }
 
+/* ============ MENU HAMBURGUER ============ */
+.menu-toggle {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  background: none;
+  border: none;
+  font-size: 26px;
+  color: #FFD700;
+  cursor: pointer;
+}
+
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  background: rgba(0,0,0,0.9);
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.nav-menu a {
+  color: #FFD700;
+  text-decoration: none;
+  padding: 8px 0;
+}
+
+.nav-menu a:hover {
+  text-decoration: underline;
+}
+
+.nav-menu.show {
+  display: flex;
+}
+
+/* ============ SECTIONS ============ */
 main {
   display: flex;
   flex-wrap: wrap;
@@ -50,14 +90,14 @@ form {
   margin-bottom: 15px;
 }
 
-input, button {
+input, button, select {
   flex: 1;
   padding: 10px;
   border: none;
   border-radius: 4px;
 }
 
-input {
+input, select {
   background: rgba(255, 255, 255, 0.9);
   color: #000;
 }
@@ -68,6 +108,10 @@ button {
   font-weight: bold;
   cursor: pointer;
   flex: none;
+}
+
+button:hover {
+  background-color: #e0c400;
 }
 
 .search-input {
@@ -125,3 +169,18 @@ tr:nth-child(even) {
 .edit-btn:hover {
   background: #e0c400;
 }
+
+/* ============ RESUMO DIÁRIO ============ */
+#dailyCuts, #dailyRevenue {
+  font-size: 1.1em;
+  margin: 5px 0;
+}
+
+/* ============ GRÁFICO ============ */
+.chart-container {
+  width: 100%;
+  max-width: 700px;
+  margin-top: 15px;
+}
+
+/* ==========*

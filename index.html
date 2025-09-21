@@ -7,8 +7,15 @@
   <title>Agenda JC Barbearia</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
+  <!-- Chart.js para o gráfico -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+  <!-- MENU HAMBÚRGUER -->
+  <nav class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  </nav>
+
   <div class="overlay">
     <header>
       <img src="imagem-background/JC_barbearia.jpg" alt="Logo JC Barbearia" class="logo">
@@ -17,7 +24,7 @@
 
     <main>
       <!-- Clientes -->
-      <section class="form-section">
+      <section class="form-section" id="clients">
         <h2>📅 Agendar Cliente</h2>
         <form id="clientForm">
           <input type="hidden" id="clientIndex">
@@ -43,7 +50,7 @@
       </section>
 
       <!-- Produtos -->
-      <section class="form-section">
+      <section class="form-section" id="products">
         <h2>🛒 Produtos</h2>
         <form id="productForm">
           <input type="hidden" id="productIndex">
@@ -69,54 +76,88 @@
       </section>
 
       <!-- Tipos de cortes -->
-<section class="form-section">
-  <h2>💈 Tipos de Cortes</h2>
-  <form id="cutTypeForm">
-    <input type="text" id="cutName" placeholder="Nome do Corte" required>
-    <input type="number" id="cutPrice" placeholder="Preço" step="0.01" required>
-    <button type="submit">Adicionar Tipo</button>
-  </form>
+      <section class="form-section" id="cut-types">
+        <h2>💈 Tipos de Cortes</h2>
+        <form id="cutTypeForm">
+          <input type="text" id="cutName" placeholder="Nome do Corte" required>
+          <input type="number" id="cutPrice" placeholder="Preço" step="0.01" required>
+          <button type="submit">Adicionar Tipo</button>
+        </form>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Corte</th>
-        <th>Preço</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody id="cutTypeList"></tbody>
-  </table>
-</section>
+        <table>
+          <thead>
+            <tr>
+              <th>Corte</th>
+              <th>Preço</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="cutTypeList"></tbody>
+        </table>
+      </section>
 
-<!-- Registrar cortes realizados -->
-<section class="form-section">
-  <h2>✂️ Cortes Realizados</h2>
-  <form id="cutSaleForm">
-    <select id="cutSelect" required></select>
-    <button type="submit">Registrar Corte</button>
-  </form>
+      <!-- Registrar cortes realizados -->
+      <section class="form-section" id="cut-sales">
+        <h2>✂️ Cortes Realizados</h2>
+        <form id="cutSaleForm">
+          <select id="cutSelect" required></select>
+          <button type="submit">Registrar Corte</button>
+        </form>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Corte</th>
-        <th>Valor</th>
-        <th>Data</th>
-      </tr>
-    </thead>
-    <tbody id="cutSaleList"></tbody>
-  </table>
-</section>
+        <table>
+          <thead>
+            <tr>
+              <th>Corte</th>
+              <th>Valor</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody id="cutSaleList"></tbody>
+        </table>
+      </section>
 
-<!-- Resumo diário -->
-<section class="form-section">
-  <h2>📊 Resumo Diário</h2>
-  <p id="dailyCuts">Total de cortes hoje: 0</p>
-  <p id="dailyRevenue">Receita total hoje: R$ 0,00</p>
-  <button onclick="printReport()">Imprimir/Exportar Relatório</button>
-   <button onclick="resetSaldo()">Resetar Saldo</button> <!-- AQUI -->
-</section>
+      <!-- Resumo diário -->
+      <section class="form-section" id="daily">
+        <h2>📊 Resumo Diário</h2>
+        <p id="dailyCuts">Total de cortes hoje: 0</p>
+        <p id="dailyRevenue">Receita total hoje: R$ 0,00</p>
+        <button onclick="printReport()">Imprimir/Exportar Relatório</button>
+        <button onclick="resetSaldo()">Resetar Saldo</button>
+      </section>
+
+      <!-- NOVA SECTION: Relatórios -->
+      <section class="form-section" id="reports">
+        <h2>📈 Relatórios</h2>
+        <p>Selecione a data para ver os relatórios:</p>
+        <input type="date" id="reportDate">
+        <button onclick="loadReport()">Carregar Relatório</button>
+
+        <div id="reportContent"></div>
+        <canvas id="reportChart" width="400" height="200"></canvas>
+      </section>
+
+      <!-- NOVA SECTION: Fiados -->
+      <section class="form-section" id="fiados">
+        <h2>💵 Fiados (Clientes Devendo)</h2>
+        <form id="fiadoForm">
+          <input type="text" id="fiadoName" placeholder="Nome do Cliente" required>
+          <input type="text" id="fiadoDescricao" placeholder="Descrição do serviço/produto" required>
+          <input type="number" id="fiadoValor" placeholder="Valor" step="0.01" required>
+          <button type="submit">Adicionar Fiado</button>
+        </form>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Descrição</th>
+              <th>Valor</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="fiadoList"></tbody>
+        </table>
+      </section>
 
     </main>
   </div>
@@ -124,13 +165,17 @@
   <script src="script.js"></script>
 
   <script>
-  // Registrar Service Worker
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-      .then(reg => console.log('Service Worker registrado:', reg))
-      .catch(err => console.log('Erro SW:', err));
-  }
-</script>
+    // Registrar Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('Service Worker registrado:', reg))
+        .catch(err => console.log('Erro SW:', err));
+    }
 
+    // toggle menu
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('active');
+    }
+  </script>
 </body>
 </html>
